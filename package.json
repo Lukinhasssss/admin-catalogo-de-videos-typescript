@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "swc src --out-dir dist",
-    "test": "yarn test",
+    "test": "jest",
     "test:local": "yarn tsc --noEmit && jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:ci": "jest --coverage"
   },
