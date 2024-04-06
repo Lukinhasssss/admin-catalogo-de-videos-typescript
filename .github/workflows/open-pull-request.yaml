@@ -1,0 +1,24 @@
+name: Open Pull Request
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+      - 'develop'
+
+jobs:
+  open_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "${{ github.ref }}"
+          destination_branch: ${{ startsWith(github.ref, 'refs/heads/feature/') && 'develop' || 'main' }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: 'Automated PR from ${{ github.ref }}'
+          pr_body: 'New changes to ${{ github.ref }} were pushed. Here are the updates.'
+          pr_label: 'automated-pr'
