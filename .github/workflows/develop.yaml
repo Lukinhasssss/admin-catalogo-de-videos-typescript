@@ -1,0 +1,91 @@
+name: Node.js CI
+
+on:
+  # Vai rodar quando for aberto um PR para a branch develop
+  pull_request:
+    branches:
+      - develop
+
+  # Vai rodar quando for feito um push na branch develop
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack yarn install
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack yarn install
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Test
+        run: yarn test
+
+  sonar:
+    name: SonarQube Analysis
+    runs-on: ubuntu-latest
+    needs: [build, test]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack yarn install
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Test
+        run: yarn test:ci
+
+      - name: SonarQube Analysis
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
