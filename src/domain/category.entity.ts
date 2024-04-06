@@ -1,5 +1,5 @@
 export type CategoryConstructorProps = {
-  categoryId: string
+  categoryId?: string
   name: string
   description?: string | null
   isActive?: boolean
