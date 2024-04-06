@@ -193,3 +193,123 @@ describe('Category Unit Tests', () => {
     })
   })
 })
+
+describe('Category Validator', () => {
+  describe('create command', () => {
+    it('should throw an error when name is null', () => {
+      expect(() => Category.create({ name: null })).containsErrorMessages({
+        name: [
+          'name should not be empty',
+          'name must be a string',
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when name is empty', () => {
+      expect(() => Category.create({ name: '' })).containsErrorMessages({
+        name: [
+          'name should not be empty'
+        ]
+      })
+    })
+
+    it('should throw an error when name is not a string', () => {
+      expect(() => Category.create({ name: 123 })).containsErrorMessages({
+        name: [
+          'name must be a string',
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when name is longer than 255 characters', () => {
+      expect(() => Category.create({ name: 'a'.repeat(256) })).containsErrorMessages({
+        name: [
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when description is longer than 255 characters', () => {
+      expect(() => Category.create({ name: 'Movie', description: 'a'.repeat(256) })).containsErrorMessages({
+        description: [
+          'description must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when isActive is not a boolean', () => {
+      expect(() => Category.create({ name: 'Movie', isActive: null })).containsErrorMessages({
+        isActive: [
+          'isActive must be a boolean'
+        ]
+      })
+    })
+
+    it('should throw an error when createdAt is not a date', () => {
+      expect(() => Category.create({ name: 'Movie', createdAt: '2021-09-01' })).containsErrorMessages({
+        createdAt: [
+          'createdAt must be a date'
+        ]
+      })
+    })
+  })
+
+  describe('changeName method', () => {
+    it('should throw an error when name is null', () => {
+      const category = Category.create({ name: 'Movie' })
+
+      expect(() => category.changeName(null)).containsErrorMessages({
+        name: [
+          'name should not be empty',
+          'name must be a string',
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when name is empty', () => {
+      const category = Category.create({ name: 'Movie' })
+
+      expect(() => category.changeName('')).containsErrorMessages({
+        name: [
+          'name should not be empty'
+        ]
+      })
+    })
+
+    it('should throw an error when name is not a string', () => {
+      const category = Category.create({ name: 'Movie' })
+
+      expect(() => category.changeName(123)).containsErrorMessages({
+        name: [
+          'name must be a string',
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+
+    it('should throw an error when name is longer than 255 characters', () => {
+      const category = Category.create({ name: 'Movie' })
+
+      expect(() => category.changeName('a'.repeat(256))).containsErrorMessages({
+        name: [
+          'name must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+  })
+
+  describe('changeDescription method', () => {
+    it('should throw an error when description is longer than 255 characters', () => {
+      const category = Category.create({ name: 'Movie' })
+
+      expect(() => category.changeDescription('a'.repeat(256))).containsErrorMessages({
+        description: [
+          'description must be shorter than or equal to 255 characters'
+        ]
+      })
+    })
+  })
+})
