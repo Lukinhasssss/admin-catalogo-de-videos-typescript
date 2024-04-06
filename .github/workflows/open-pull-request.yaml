@@ -19,6 +19,6 @@ jobs:
           source_branch: "${{ github.ref }}"
           destination_branch: ${{ startsWith(github.ref, 'refs/heads/feature/') && 'develop' || 'main' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_title: 'Automated PR from ${{ github.ref }}'
-          pr_body: 'New changes to ${{ github.ref }} were pushed. Here are the updates.'
+          pr_title: "Automated PR from ${{ replace(github.ref, 'refs/heads/', '') }}"
+          pr_body: "New changes to ${{ replace(github.ref, 'refs/heads/', '') }}. Check the files changed and merge if everything is ok."
           pr_label: 'automated-pr'
