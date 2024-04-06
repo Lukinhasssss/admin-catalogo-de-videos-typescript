@@ -5,6 +5,7 @@
   "description": "Administração do catálogo de vídeos",
   "main": "index.js",
   "scripts": {
+    "build": "swc src --out-dir dist",
     "test": "jest --watch"
   },
   "keywords": [
