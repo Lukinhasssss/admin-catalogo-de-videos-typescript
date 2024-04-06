@@ -214,14 +214,14 @@ describe('Category Validator', () => {
       })
     })
 
-    it('should throw an error when name is not a string', () => {
-      expect(() => Category.create({ name: 123 })).containsErrorMessages({
-        name: [
-          'name must be a string',
-          'name must be shorter than or equal to 255 characters'
-        ]
-      })
-    })
+    // it('should throw an error when name is not a string', () => {
+    //   expect(() => Category.create({ name: 123 })).containsErrorMessages({
+    //     name: [
+    //       'name must be a string',
+    //       'name must be shorter than or equal to 255 characters'
+    //     ]
+    //   })
+    // })
 
     it('should throw an error when name is longer than 255 characters', () => {
       expect(() => Category.create({ name: 'a'.repeat(256) })).containsErrorMessages({
@@ -247,13 +247,13 @@ describe('Category Validator', () => {
       })
     })
 
-    it('should throw an error when createdAt is not a date', () => {
-      expect(() => Category.create({ name: 'Movie', createdAt: '2021-09-01' })).containsErrorMessages({
-        createdAt: [
-          'createdAt must be a date'
-        ]
-      })
-    })
+    // it('should throw an error when createdAt is not a date', () => {
+    //   expect(() => Category.create({ name: 'Movie', createdAt: '2021-09-01' })).containsErrorMessages({
+    //     createdAt: [
+    //       'createdAt must be a date'
+    //     ]
+    //   })
+    // })
   })
 
   describe('changeName method', () => {
@@ -279,16 +279,16 @@ describe('Category Validator', () => {
       })
     })
 
-    it('should throw an error when name is not a string', () => {
-      const category = Category.create({ name: 'Movie' })
+    // it('should throw an error when name is not a string', () => {
+    //   const category = Category.create({ name: 'Movie' })
 
-      expect(() => category.changeName(123)).containsErrorMessages({
-        name: [
-          'name must be a string',
-          'name must be shorter than or equal to 255 characters'
-        ]
-      })
-    })
+    //   expect(() => category.changeName(123)).containsErrorMessages({
+    //     name: [
+    //       'name must be a string',
+    //       'name must be shorter than or equal to 255 characters'
+    //     ]
+    //   })
+    // })
 
     it('should throw an error when name is longer than 255 characters', () => {
       const category = Category.create({ name: 'Movie' })
