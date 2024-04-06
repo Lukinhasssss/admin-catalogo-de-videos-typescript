@@ -5,7 +5,7 @@
   "description": "Administração do catálogo de vídeos",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "keywords": [
     "admin",
