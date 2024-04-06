@@ -13,4 +13,6 @@ yarn jest --init
 yarn add ts-node -D
 yarn add lodash
 yarn add @types/lodash -D
+yarn add uuid
+yarn add @types/uuid -D
 ```
