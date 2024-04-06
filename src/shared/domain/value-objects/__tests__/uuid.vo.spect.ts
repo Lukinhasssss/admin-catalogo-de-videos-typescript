@@ -40,4 +40,12 @@ describe('UUID Value Object Unit Tests', () => {
     expect(uuid1.equals(uuid2)).toBeFalsy()
     expect(validateSpy).toHaveBeenCalled()
   })
+
+  it('should create a UUID using the factory method', () => {
+    const uuid = Uuid.create()
+
+    expect(uuid.id).toBeDefined()
+    expect(uuidValidate(uuid.id)).toBeTruthy()
+    expect(validateSpy).toHaveBeenCalled()
+  })
 })
