@@ -1,6 +1,6 @@
 import { MaxLength, IsString, IsNotEmpty, IsOptional, IsBoolean } from "class-validator"
 import { Category } from "./category.entity"
-import { ClassValidatorFields } from "src/shared/domain/validators/class-validator-fields"
+import { ClassValidatorFields } from "../../shared/domain/validators/class-validator-fields"
 
 export class CategoryRules {
   @MaxLength(255)

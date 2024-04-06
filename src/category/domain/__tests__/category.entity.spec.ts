@@ -2,6 +2,12 @@ import { Uuid } from '../../../shared/domain/value-objects/uuid.vo'
 import { Category } from "../category.entity"
 
 describe('Category Unit Tests', () => {
+  let validateSpy: any
+
+  beforeEach(() => {
+    validateSpy = jest.spyOn(Category, 'validate')
+  })
+
   describe('constructor', () => {
     it('should create a category with default values', () => {
       const category = new Category({
@@ -59,6 +65,7 @@ describe('Category Unit Tests', () => {
       expect(category.description).toBeNull()
       expect(category.isActive).toBeTruthy()
       expect(category.createdAt).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalled()
     })
 
     it('should create a category with description', () => {
@@ -72,6 +79,7 @@ describe('Category Unit Tests', () => {
       expect(category.description).toBe('Movie description')
       expect(category.isActive).toBeTruthy()
       expect(category.createdAt).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalled()
     })
 
     it('should create a category with isActive', () => {
@@ -85,6 +93,7 @@ describe('Category Unit Tests', () => {
       expect(category.description).toBeNull()
       expect(category.isActive).toBeFalsy()
       expect(category.createdAt).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalled()
     })
 
     it('should create a category with all values', () => {
@@ -99,6 +108,7 @@ describe('Category Unit Tests', () => {
       expect(category.description).toBe('Movie description')
       expect(category.isActive).toBeFalsy()
       expect(category.createdAt).toBeInstanceOf(Date)
+      expect(validateSpy).toHaveBeenCalled()
     })
   })
 
@@ -111,6 +121,7 @@ describe('Category Unit Tests', () => {
       category.changeName('Music')
 
       expect(category.name).toBe('Music')
+      expect(validateSpy).toHaveBeenCalledTimes(2)
     })
 
     it('should change description', () => {
@@ -121,6 +132,7 @@ describe('Category Unit Tests', () => {
       category.changeDescription('Music description')
 
       expect(category.description).toBe('Music description')
+      expect(validateSpy).toHaveBeenCalledTimes(2)
     })
 
     it('should activate', () => {
@@ -132,6 +144,7 @@ describe('Category Unit Tests', () => {
       category.activate()
 
       expect(category.isActive).toBeTruthy()
+      expect(validateSpy).toHaveBeenCalled()
     })
 
     it('should deactivate', () => {
@@ -142,6 +155,7 @@ describe('Category Unit Tests', () => {
       category.deactivate()
 
       expect(category.isActive).toBeFalsy()
+      expect(validateSpy).toHaveBeenCalled()
     })
 
     it('should return JSON', () => {
@@ -158,6 +172,7 @@ describe('Category Unit Tests', () => {
         isActive: true,
         createdAt: category.createdAt
       })
+      expect(validateSpy).toHaveBeenCalled()
     })
   })
 

@@ -32,15 +32,19 @@ export class Category {
 
   // Factory method
   static create(props: CategoryCreateCommand): Category {
-    return new Category(props)
+    const category = new Category(props)
+    Category.validate(category)
+    return category
   }
 
   changeName(name: string) {
     this.name = name
+    Category.validate(this)
   }
 
   changeDescription(description: string) {
     this.description = description
+    Category.validate(this)
   }
 
   activate() {
