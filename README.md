@@ -15,4 +15,5 @@ yarn add lodash
 yarn add @types/lodash -D
 yarn add uuid
 yarn add @types/uuid -D
+yarn add class-validator
 ```
